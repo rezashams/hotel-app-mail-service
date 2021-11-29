@@ -5,7 +5,7 @@ import com.mailjet.client.errors.MailjetSocketTimeoutException;
 
 public interface MailJitService {
 
-    String sendEmail(String from, String to, String subject, String Body) throws MailjetSocketTimeoutException, MailjetException;
+    int sendEmail(String from, String to, String subject, String Body) throws MailjetSocketTimeoutException, MailjetException;
 
 
 }

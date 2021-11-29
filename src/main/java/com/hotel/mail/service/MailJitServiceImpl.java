@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class MailJitServiceImpl implements MailJitService {
 
     @Override
-    public String sendEmail(String from,String to, String subject, String Body) throws MailjetSocketTimeoutException, MailjetException {
+    public int sendEmail(String from,String to, String subject, String Body) throws MailjetSocketTimeoutException, MailjetException {
         MailjetClient client;
         MailjetRequest request;
         MailjetResponse response;
@@ -40,6 +40,6 @@ public class MailJitServiceImpl implements MailJitService {
         response = client.post(request);
         System.out.println(response.getStatus());
         System.out.println(response.getData());
-        return null;
+        return response.getStatus();
     }
 }

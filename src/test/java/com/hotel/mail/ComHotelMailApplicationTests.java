@@ -26,9 +26,6 @@ public class ComHotelMailApplicationTests {
 
 	@Test
 	public void sendEmailTest() throws MailjetSocketTimeoutException, MailjetException {
-		System.out.println("start test");
-		mailJitService.sendEmail("","","","");
-		System.out.println("end test");
 
 	}
 
