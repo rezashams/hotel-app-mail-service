@@ -9,11 +9,11 @@ import com.hotel.mail.service.MailService;
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -26,16 +26,19 @@ public class MailController {
     }
 
 
-    @PostMapping("mail/send")
-    public ResponseEntity<Integer>  sendMail(@RequestBody Email email) {
+    @RequestMapping(value = "/mail/send/{roomName}/{payablePrice}/{email}/{discountPrice}",method = RequestMethod.GET, produces = { "application/xml", "text/xml" }, consumes = MediaType.ALL_VALUE )
+    public String  sendMail(@PathVariable("roomName") String roomName, @PathVariable("payablePrice") int payablePrice, @PathVariable("discountPrice") int discountPrice, @PathVariable("email") String email) {
         int result;
+        System.out.println("Start sending mail");
         try {
-            result = mailService.sendEmail(email);
+            result = mailService.sendEmail(roomName,payablePrice,discountPrice, email);
         } catch (MailjetSocketTimeoutException | MailjetException e) {
             result=500;
             e.printStackTrace();
         }
-        return  new ResponseEntity<>(result,HttpStatus.CREATED);
+        return  "true";
     }
+
+
 
 }
